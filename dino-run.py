@@ -27,34 +27,26 @@ class DinoRun:
 		""" Respond to input events """
 
 		for event in pygame.event.get():
-			keyhold = pygame.key.get_pressed()
-
 			if event.type == pygame.QUIT:
 				sys.exit()
 
 
-			# Check for Key Presses
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_q:
 					sys.exit()
-
-				if event.key == pygame.K_UP:
-					self.dino.jump = True
+				if event.key == pygame.K_LEFT:
+					self.dino.control(-self.settings.dino_steps, 0)
+				if event.key == pygame.K_RIGHT:
+					self.dino.control(self.settings.dino_steps, 0)
 
 			if event.type == pygame.KEYUP:
-				if event.key == pygame.K_UP:
-					self.dino.jump = False
-
-
-			# Check for Key Hold
-			if keyhold[pygame.K_RIGHT]:
-				self.dino.moving_right = True
-			elif keyhold[pygame.K_LEFT]:
-				self.dino.moving_left = True	
-			else: 
-				self.dino.moving_right = False
-				self.dino.moving_left = False
-
+				if event.key == pygame.K_LEFT:
+					self.dino.control(self.settings.dino_steps, 0)
+					self.dino.image = pygame.transform.flip(self.dino.image_idle, True, False)
+					
+				if event.key == pygame.K_RIGHT:
+					self.dino.control(-self.settings.dino_steps, 0)
+					self.dino.image = self.dino.image_idle
 
 
 	def _update_screen(self):
