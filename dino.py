@@ -72,7 +72,7 @@ class Dino(Sprite):
 
 	def update(self):
 		""" Update the dino based on the movement flag """
-		if self.moving_right:
+		if self.moving_right and self.rect.right < self.screen_rect.right:
 			self.index += 1
 			self.rect.x += 20
 
@@ -80,7 +80,7 @@ class Dino(Sprite):
 				self.index = 0
 			self.image = self.images[self.index]
 
-		elif self.moving_left:
+		elif self.moving_left and self.rect.left > 0:
 			self.index += 1
 			self.rect.x -= 20
 
