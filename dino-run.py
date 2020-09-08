@@ -38,13 +38,22 @@ class DinoRun:
 				if event.key == pygame.K_q:
 					sys.exit()
 
+				if event.key == pygame.K_UP:
+					self.dino.jump = True
+
+			if event.type == pygame.KEYUP:
+				if event.key == pygame.K_UP:
+					self.dino.jump = False
+
 
 			# Check for Key Hold
 			if keyhold[pygame.K_RIGHT]:
 				self.dino.moving_right = True
-				
+			elif keyhold[pygame.K_LEFT]:
+				self.dino.moving_left = True	
 			else: 
 				self.dino.moving_right = False
+				self.dino.moving_left = False
 
 
 

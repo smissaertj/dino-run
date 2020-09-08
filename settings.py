@@ -10,3 +10,4 @@ class Settings:
 		self.bg_color = (0, 0, 0)
 		self.fps = 10
 
+
