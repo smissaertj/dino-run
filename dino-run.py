@@ -14,6 +14,7 @@ class DinoRun:
 		pygame.init()
 		self.settings = Settings()
 		self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+		self.backdropbox = self.screen.get_rect()
 		pygame.display.set_caption("Dino Run!")
 		
 		self.dino = Dino(self)
@@ -51,7 +52,8 @@ class DinoRun:
 
 	def _update_screen(self):
 		""" Update images on the screen and flip to the new screen """
-		self.screen.fill(self.settings.bg_color)
+
+		self.screen.blit(self.settings.backdrop, self.backdropbox)
 		self.dino.blitme()
 		pygame.display.flip()
 
@@ -62,6 +64,7 @@ class DinoRun:
 
 		while True:
 			# Watch for input events:
+		
 			self._check_events()
 			self.dino.update()
 
