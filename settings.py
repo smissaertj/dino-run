@@ -9,7 +9,7 @@ class Settings:
 		self.screen_height = 1080
 		self.bg_color = (0, 0, 0)
 		self.fps = 40
-		self.ani = 4  # Animation Cycles
+		self.ani = 6  # Animation Cycles
 
 		# Dino settings
 		self.dino_steps = 10
