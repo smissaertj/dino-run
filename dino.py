@@ -34,7 +34,7 @@ class Dino(Sprite):
 		# Create a list of images for the run animation
 		self.images = [] 
 		for i in range(1,8):
-			img = pygame.transform.scale(pygame.image.load(os.path.join('img/dinorun', 'dino_run_' + str(i) + '.png')), self.settings.dino_size)
+			img = pygame.transform.scale(pygame.image.load(os.path.join('img/d_run', str(i) + '.png')), self.settings.dino_size)
 			self.images.append(img)
 	
 
