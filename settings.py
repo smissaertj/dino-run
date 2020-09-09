@@ -13,3 +13,4 @@ class Settings:
 
 		# Dino settings
 		self.dino_steps = 10
+		self.dino_size = (184, 196)

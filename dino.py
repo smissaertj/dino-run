@@ -15,7 +15,6 @@ class Dino(Sprite):
 
 		self.screen = dr_game.screen
 		self.screen_rect = dr_game.screen.get_rect()
-		self.image_idle = pygame.image.load('img/dino_idle.png')
 		self.settings = dr_game.settings
 
 		self.movex = 0
@@ -23,6 +22,7 @@ class Dino(Sprite):
 		self.frame = 0
 		
 		# Set the starting image.
+		self.image_idle = pygame.transform.scale(pygame.image.load('img/dino_idle.png'), self.settings.dino_size)
 		self.image = self.image_idle
 		
 		# Get the img rect
@@ -34,7 +34,7 @@ class Dino(Sprite):
 		# Create a list of images for the run animation
 		self.images = [] 
 		for i in range(1,8):
-			img = pygame.image.load(os.path.join('img/dinorun', 'dino_run_' + str(i) + '.png'))
+			img = pygame.transform.scale(pygame.image.load(os.path.join('img/dinorun', 'dino_run_' + str(i) + '.png')), self.settings.dino_size)
 			self.images.append(img)
 	
 
