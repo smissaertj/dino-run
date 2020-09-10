@@ -32,7 +32,8 @@ class Dino(Sprite):
 		self.rect = self.image.get_rect()
 
 		# Set the starting postition in the bottom left of the screen
-		self.rect.bottomleft = self.screen_rect.bottomleft
+		self.rect.x = 500 #self.screen_rect.left
+		self.rect.y = 500 #self.screen_rect.bottom - (self.rect.height + 112)
 
 		# Create a list of images for the run animation
 		self.images = [] 
@@ -41,14 +42,16 @@ class Dino(Sprite):
 			self.images.append(img)
 
 
+
+
 	def gravity(self):
 		""" Implement gravity on the dino """
 
-		if self.rect.bottom < self.settings.screen_height and self.movey >= 0:
-			# Engage gravity if the position of the bottom side of the Dimo is smaller (higher up) then the vertical screen edge.
+		if self.rect.bottom < (self.settings.screen_height - 112) and self.movey >= 0:
+			# Engage gravity if the position of the bottom side of the Dimo is smaller (higher up) then the vertical screen edge + the height of the ground tile.
 			self.movey += self.settings.dino_gravity
 		
-		if self.rect.bottom >= self.settings.screen_height:
+		if self.rect.bottom >= (self.settings.screen_height - 112):
 			# Stop gravity once the Dimo hits the vertical screen edge.
 			self.movey = 0
 

@@ -73,8 +73,9 @@ class DinoRun:
 		""" Update images on the screen and flip to the new screen """
 
 		self.screen.blit(self.settings.backdrop, self.backdropbox)
-		self.dino.blitme()
 		self.grounds.draw(self.screen)
+		self.dino.blitme()
+		
 		pygame.display.flip()
 
 
