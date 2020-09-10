@@ -3,6 +3,7 @@ import pygame
 
 from settings import Settings
 from dino import Dino
+from ground import Ground
 
 
 class DinoRun:
@@ -18,6 +19,7 @@ class DinoRun:
 		pygame.display.set_caption("Dino Run!")
 		
 		self.dino = Dino(self)
+		self.grounds = pygame.sprite.Group()
 
 
 		# Get the pygame clock for handling FPS
@@ -50,11 +52,29 @@ class DinoRun:
 					self.dino.image = self.dino.image_idle
 
 
+
+	def _create_ground(self):
+		ground = Ground(self)
+		self.grounds.add(ground)
+
+		""" Find the number of tiles in a row """
+		ground_width, ground_height = ground.rect.size
+		available_space_x = self.settings.screen_width #- ( 2 * ground_width)
+		number_of_tiles = available_space_x // ground_width
+
+		for tile_number in range(0, number_of_tiles):
+			ground = Ground(self)
+			ground.x = ground_width * tile_number
+			ground.rect.x = ground.x
+			self.grounds.add(ground)
+
+
 	def _update_screen(self):
 		""" Update images on the screen and flip to the new screen """
 
 		self.screen.blit(self.settings.backdrop, self.backdropbox)
 		self.dino.blitme()
+		self.grounds.draw(self.screen)
 		pygame.display.flip()
 
 
@@ -66,6 +86,7 @@ class DinoRun:
 			# Watch for input events:
 		
 			self._check_events()
+			self._create_ground()
 			self.dino.gravity()
 			self.dino.update()
 

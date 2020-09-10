@@ -20,6 +20,9 @@ class Dino(Sprite):
 		self.movex = 0
 		self.movey = 0
 		self.frame = 0
+
+		self.is_jumping = False
+		self.is_falling = True
 		
 		# Set the starting image.
 		self.image_idle = pygame.transform.scale(pygame.image.load('img/dino_idle.png'), self.settings.dino_size)
@@ -49,9 +52,6 @@ class Dino(Sprite):
 			# Stop gravity once the Dimo hits the vertical screen edge.
 			self.movey = 0
 
-
-
-	
 
 	def control(self, x, y):
 		""" Control Dino movement """
