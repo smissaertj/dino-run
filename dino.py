@@ -25,7 +25,7 @@ class Dino(Sprite):
 		self.is_falling = True
 		
 		# Set the starting image.
-		self.image_idle = pygame.transform.scale(pygame.image.load('img/dino_idle.png'), self.settings.dino_size)
+		self.image_idle = self.settings.dino_img
 		self.image = self.image_idle
 		
 		# Get the img rect
@@ -38,7 +38,7 @@ class Dino(Sprite):
 		# Create a list of images for the run animation
 		self.images = [] 
 		for i in range(1,8):
-			img = pygame.transform.scale(pygame.image.load(os.path.join('img/d_run', str(i) + '.png')), self.settings.dino_size)
+			img = pygame.transform.scale(pygame.image.load(os.path.join('img/d_run', str(i) + '.png')), (self.settings.dino_width, self.settings.dino_height))
 			self.images.append(img)
 
 

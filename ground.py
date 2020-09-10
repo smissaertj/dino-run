@@ -4,7 +4,7 @@ from pygame.sprite import Sprite
 class Ground(Sprite):
 	""" A class to manage platforms int the game the dino can travel to """
 
-	def __init__(self, dr_game): #, xloc, yloc, imgw, imgh, img):
+	def __init__(self, dr_game): 
 
 		super().__init__()
 
