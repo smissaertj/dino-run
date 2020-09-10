@@ -66,6 +66,7 @@ class DinoRun:
 			# Watch for input events:
 		
 			self._check_events()
+			self.dino.gravity()
 			self.dino.update()
 
 			# Redraw the screen at each pass of the loop

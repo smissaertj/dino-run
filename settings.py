@@ -16,5 +16,6 @@ class Settings:
 		self.ani = 7  # Animation Cycles
 
 		# Dino settings
-		self.dino_steps = 10
+		self.dino_steps = 10 # amount of pixels to move left or right
 		self.dino_size = (184, 196)
+		self.dino_gravity = 1 # amount of pixels to drop/move downwards

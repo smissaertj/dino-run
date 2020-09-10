@@ -11,7 +11,7 @@ class Dino(Sprite):
 	def __init__(self, dr_game):
 		""" Initialize the dino and set starting image and position """
 
-		super(Dino, self).__init__()
+		super().__init__()
 
 		self.screen = dr_game.screen
 		self.screen_rect = dr_game.screen.get_rect()
@@ -36,6 +36,21 @@ class Dino(Sprite):
 		for i in range(1,8):
 			img = pygame.transform.scale(pygame.image.load(os.path.join('img/d_run', str(i) + '.png')), self.settings.dino_size)
 			self.images.append(img)
+
+
+	def gravity(self):
+		""" Implement gravity on the dino """
+
+		if self.rect.bottom < self.settings.screen_height and self.movey >= 0:
+			# Engage gravity if the position of the bottom side of the Dimo is smaller (higher up) then the vertical screen edge.
+			self.movey += self.settings.dino_gravity
+		
+		if self.rect.bottom >= self.settings.screen_height:
+			# Stop gravity once the Dimo hits the vertical screen edge.
+			self.movey = 0
+
+
+
 	
 
 	def control(self, x, y):
