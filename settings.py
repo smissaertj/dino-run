@@ -27,3 +27,4 @@ class Settings:
 		self.platform_tiles = 3
 		self.platform_img = self.ground_img
 		self.platform_l1_yloc = self.screen_height - (( 2 * self.ground_height) + self.dino_height)
+		self.platform_l2_yloc = self.screen_height - (( 4 * self.ground_height) + self.dino_height)

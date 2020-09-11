@@ -28,6 +28,8 @@ class DinoRun:
 		# to prevent them from being recreated over and over again in _update_screen(), slowing down the application over time.
 		self._create_ground()
 		self._create_platform_level1()
+		self._create_platform_level2()
+		self._create_platform_level2_1()
 
 
 		# Get the pygame clock for handling FPS
@@ -91,7 +93,47 @@ class DinoRun:
 			platform = Platform(self, yloc)
 
 			# Set the X location of the tiles
-			platform.x = (platform_width * x) + (available_space_x // 3 + platform_width)
+			platform.x = (platform_width * x) + (available_space_x // number_of_tiles + platform_width)
+			platform.rect.x = platform.x
+			self.platforms.add(platform)
+
+
+	def _create_platform_level2(self):
+		""" Create a platform  """
+
+		# Set the Y location of the platform
+		yloc = self.settings.platform_l2_yloc
+		
+		platform = Platform(self, yloc)
+		platform_width, platform_height = platform.rect.size
+		available_space_x = self.settings.screen_width 
+		number_of_tiles = self.settings.platform_tiles
+
+		for x in range(number_of_tiles):
+			platform = Platform(self, yloc)
+
+			# Set the X location of the tiles
+			platform.x = (platform_width * x) + (available_space_x // number_of_tiles) - (number_of_tiles * platform_width)
+			platform.rect.x = platform.x
+			self.platforms.add(platform)
+
+	def _create_platform_level2_1(self):
+		""" Create a platform  """
+
+		# Set the Y location of the platform
+		yloc = self.settings.platform_l2_yloc
+		
+		platform = Platform(self, yloc)
+		platform_width, platform_height = platform.rect.size
+		available_space_x = self.settings.screen_width 
+		number_of_tiles = self.settings.platform_tiles
+
+		for x in range(number_of_tiles):
+			platform = Platform(self, yloc)
+
+			# Set the X location of the tiles
+
+			platform.x = (platform_width * x) + (available_space_x // number_of_tiles) + (number_of_tiles + 5 * platform_width)
 			platform.rect.x = platform.x
 			self.platforms.add(platform)
 
