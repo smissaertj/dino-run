@@ -29,7 +29,7 @@ class DinoRun:
 		self._create_ground()
 		self._create_platform_level1()
 		self._create_platform_level2()
-		self._create_platform_level2_1()
+		#self._create_platform_level2_1()
 
 
 		# Get the pygame clock for handling FPS
@@ -109,6 +109,8 @@ class DinoRun:
 		available_space_x = self.settings.screen_width 
 		number_of_tiles = self.settings.platform_tiles
 
+		
+		# Level 2 - LEFT
 		for x in range(number_of_tiles):
 			platform = Platform(self, yloc)
 
@@ -117,17 +119,7 @@ class DinoRun:
 			platform.rect.x = platform.x
 			self.platforms.add(platform)
 
-	def _create_platform_level2_1(self):
-		""" Create a platform  """
-
-		# Set the Y location of the platform
-		yloc = self.settings.platform_l2_yloc
-		
-		platform = Platform(self, yloc)
-		platform_width, platform_height = platform.rect.size
-		available_space_x = self.settings.screen_width 
-		number_of_tiles = self.settings.platform_tiles
-
+		# Level 2- RIGHT
 		for x in range(number_of_tiles):
 			platform = Platform(self, yloc)
 
@@ -136,7 +128,6 @@ class DinoRun:
 			platform.x = (platform_width * x) + (available_space_x // number_of_tiles) + (number_of_tiles + 5 * platform_width)
 			platform.rect.x = platform.x
 			self.platforms.add(platform)
-
 
 
 	def _update_screen(self):
