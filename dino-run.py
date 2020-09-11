@@ -24,6 +24,12 @@ class DinoRun:
 		self.platforms = pygame.sprite.Group()
 
 
+		# Create the ground and platform outside of the main loop
+		# to prevent them from being recreated over and over again in _update_screen(), slowing down the application over time.
+		self._create_ground()
+		self._create_platform()
+
+
 		# Get the pygame clock for handling FPS
 		self.clock = pygame.time.Clock()
 
@@ -106,8 +112,6 @@ class DinoRun:
 			# Watch for input events:
 		
 			self._check_events()
-			self._create_ground()
-			self._create_platform()
 			self.dino.gravity()
 			self.dino.update()
 
