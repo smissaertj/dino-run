@@ -5,7 +5,7 @@ from pygame.sprite import Sprite
 class Platform(Sprite):
 	""" a class to manage platforms """
 
-	def __init__(self, dr_game):
+	def __init__(self, dr_game, yloc):
 
 		super().__init__()
 
@@ -16,7 +16,7 @@ class Platform(Sprite):
 		self.rect = self.image.get_rect()
 
 
-		self.rect.y = self.settings.screen_height - (256 + 184)
+		self.rect.y = yloc #self.settings.screen_height - (256 + 184)
 
 
 
