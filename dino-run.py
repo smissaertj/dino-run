@@ -27,9 +27,7 @@ class DinoRun:
 		# Create the ground and platform outside of the main loop
 		# to prevent them from being recreated over and over again in _update_screen(), slowing down the application over time.
 		self._create_ground()
-		self._create_platform_level1()
-		self._create_platform_level2()
-		#self._create_platform_level2_1()
+		self._create_platforms()
 
 
 		# Get the pygame clock for handling FPS
@@ -78,12 +76,13 @@ class DinoRun:
 			self.grounds.add(ground)
 
 
-	def _create_platform_level1(self):
-		""" Create a platform  """
+	def _create_platforms(self):
 
+
+		## Level 1 - MIDDLE
 		# Set the Y location of the platform
 		yloc = self.settings.platform_l1_yloc
-		
+
 		platform = Platform(self, yloc)
 		platform_width, platform_height = platform.rect.size
 		available_space_x = self.settings.screen_width 
@@ -96,11 +95,10 @@ class DinoRun:
 			platform.x = (platform_width * x) + (available_space_x // number_of_tiles + platform_width)
 			platform.rect.x = platform.x
 			self.platforms.add(platform)
+		## END ##
 
 
-	def _create_platform_level2(self):
-		""" Create a platform  """
-
+		## Level 2
 		# Set the Y location of the platform
 		yloc = self.settings.platform_l2_yloc
 		
@@ -124,11 +122,11 @@ class DinoRun:
 			platform = Platform(self, yloc)
 
 			# Set the X location of the tiles
-
 			platform.x = (platform_width * x) + (available_space_x // number_of_tiles) + (number_of_tiles + 5 * platform_width)
 			platform.rect.x = platform.x
 			self.platforms.add(platform)
-
+		## END ##
+		
 
 	def _update_screen(self):
 		""" Update images on the screen and flip to the new screen """
