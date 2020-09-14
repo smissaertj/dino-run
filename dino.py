@@ -1,6 +1,6 @@
 import os
 import pygame
-from pygame.sprite import Sprite
+from pygame.sprite import Sprite, spritecollide
 
 
 
@@ -13,6 +13,7 @@ class Dino(Sprite):
 
 		super().__init__()
 
+		self.dr_game = dr_game
 		self.screen = dr_game.screen
 		self.screen_rect = dr_game.screen.get_rect()
 		self.settings = dr_game.settings
@@ -21,7 +22,7 @@ class Dino(Sprite):
 		self.movey = 0
 		self.frame = 0
 
-		self.is_jumping = False
+		self.is_jumping = True # Turn gravity on
 		self.is_falling = True
 		
 		# Set the starting image.
@@ -33,7 +34,7 @@ class Dino(Sprite):
 
 		# Set the starting postition in the bottom left of the screen
 		self.rect.x = self.screen_rect.left
-		self.rect.y = self.screen_rect.bottom - (self.rect.height + 112)
+		self.rect.y = self.screen_rect.bottom - self.settings.ground_height
 
 		# Create a list of images for the run animation
 		self.images = [] 
@@ -44,34 +45,30 @@ class Dino(Sprite):
 
 
 
-	def gravity(self):
-		""" Implement gravity on the dino """
 
-		if self.rect.bottom < (self.settings.screen_height - 112) and self.movey >= 0:
-			# Engage gravity if the position of the bottom side of the Dimo is smaller (higher up) then the vertical screen edge + the height of the ground tile.
+	def gravity(self):
+		if self.is_jumping:
 			self.movey += self.settings.dino_gravity
-		
-		if self.rect.bottom >= (self.settings.screen_height - 112):
-			# Stop gravity once the Dimo hits the vertical screen edge.
-			self.movey = 0
+
+
+	def jump(self):
+		if self.is_jumping is False:
+			self.is_falling = False
+			self.is_jumping = True
 
 
 	def control(self, x, y):
 		""" Control Dino movement """
 
 		self.movex += x
-		self.movey += y
 
 
 	def update(self):
 		""" Update Dino position """
 
-		self.rect.x = self.rect.x + self.movex
-		self.rect.y = self.rect.y + self.movey
-
-
 		# Move left
 		if self.movex < 0:
+			self.is_jumping = True # Turn gravity on upon moving
 			self.frame += 1
 			if self.frame > 3 * self.settings.ani:
 				self.frame = 0
@@ -80,11 +77,33 @@ class Dino(Sprite):
 
 		# Move right
 		if self.movex > 0:
+			self.is_jumping = True # Turn gravity on upon moving
 			self.frame += 1
 			if self.frame > 3 * self.settings.ani:
 				self.frame = 0
 			self.image = self.images[self.frame // self.settings.ani]
 		
+
+		# Collisions
+		ground_hit_list = spritecollide(self, self.dr_game.grounds, False)
+		platform_hit_list = spritecollide(self, self.dr_game.platforms, False)
+		#print(ground_hit_list)
+		#print(platform_hit_list)
+
+		for g in ground_hit_list:
+			self.movey = 0 # Stop moving Y on collision with ground
+			self.rect.bottom = g.rect.top
+			self.is_jumping = False # Stop jumping on collision with ground
+
+		# Jump
+		if self.is_jumping and self.is_falling is False:
+			self.is_falling = True
+			self.movey -= self.settings.dino_jump_height
+
+
+		self.rect.x += self.movex
+		self.rect.y += self.movey
+
 
 	def blitme(self):
 		""" Draw the dino at the current position """

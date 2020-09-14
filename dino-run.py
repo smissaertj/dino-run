@@ -18,17 +18,16 @@ class DinoRun:
 		self.screen = self.settings.screen
 		self.backdropbox = self.screen.get_rect()
 		pygame.display.set_caption("Dino Run!")
-		
-		self.dino = Dino(self)
+
 		self.grounds = pygame.sprite.Group()
 		self.platforms = pygame.sprite.Group()
-
 
 		# Create the ground and platform outside of the main loop
 		# to prevent them from being recreated over and over again in _update_screen(), slowing down the application over time.
 		self._create_ground()
 		self._create_platforms()
 
+		self.dino = Dino(self)
 
 		# Get the pygame clock for handling FPS
 		self.clock = pygame.time.Clock()
@@ -49,6 +48,8 @@ class DinoRun:
 					self.dino.control(-self.settings.dino_steps, 0)
 				if event.key == pygame.K_RIGHT:
 					self.dino.control(self.settings.dino_steps, 0)
+				if event.key == pygame.K_UP:
+					self.dino.jump()
 
 			if event.type == pygame.KEYUP:
 				if event.key == pygame.K_LEFT:

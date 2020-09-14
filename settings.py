@@ -17,7 +17,8 @@ class Settings:
 		self.dino_steps = 10 # amount of pixels to move left or right
 		self.dino_width, self.dino_height = 184, 196
 		self.dino_img = pygame.image.load('img/dino_idle.png').convert_alpha()
-		self.dino_gravity = 1 # amount of pixels to drop/move downwards
+		self.dino_gravity = 2 # amount of pixels to drop/move downwards
+		self.dino_jump_height = 40 # How high to jump
 
 		# Ground settings
 		self.ground_img = pygame.image.load('img/grass.png').convert_alpha()
