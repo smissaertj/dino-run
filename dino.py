@@ -77,6 +77,19 @@ class Dino(Sprite):
 			self.is_jumping = False # Stop jumping on collision with ground
 
 
+		for p in platform_hit_list:
+			self.movey = 0
+			#self.rect.bottom = p.rect.top
+			self.is_jumping = False
+
+			# Approach from below
+			if self.rect.bottom <= p.rect.bottom:
+				self.rect.bottom = p.rect.top
+			else:
+				self.is_jumping = True
+				self.movey += self.settings.dino_gravity
+
+
 		# Jump
 		if self.is_jumping and self.is_falling is False:
 			self.is_falling = True
