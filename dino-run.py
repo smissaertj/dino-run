@@ -114,7 +114,7 @@ class DinoRun:
 			platform = Platform(self, yloc)
 
 			# Set the X location of the tiles
-			platform.x = (platform_width * x) + (available_space_x // number_of_tiles) - (number_of_tiles * platform_width)
+			platform.x = platform_width + (platform_width * x)
 			platform.rect.x = platform.x
 			self.platforms.add(platform)
 
@@ -123,7 +123,7 @@ class DinoRun:
 			platform = Platform(self, yloc)
 
 			# Set the X location of the tiles
-			platform.x = (platform_width * x) + (available_space_x // number_of_tiles) + (number_of_tiles + 5 * platform_width)
+			platform.x = (platform_width * x) + (available_space_x // number_of_tiles) + (number_of_tiles + 6 * platform_width)
 			platform.rect.x = platform.x
 			self.platforms.add(platform)
 		## END ##

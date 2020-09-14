@@ -34,7 +34,7 @@ class Dino(Sprite):
 
 		# Set the starting postition in the bottom left of the screen
 		self.rect.x = self.screen_rect.left
-		#self.rect.y = self.screen_rect.bottom - self.settings.ground_height
+		self.rect.y = self.screen_rect.bottom - self.settings.ground_height
 
 		# Create a list of images for the run animation
 		self.images = [] 
@@ -68,8 +68,6 @@ class Dino(Sprite):
 		# Collisions
 		ground_hit_list = spritecollide(self, self.dr_game.grounds, False)
 		platform_hit_list = spritecollide(self, self.dr_game.platforms, False)
-		#print(ground_hit_list)
-		#print(platform_hit_list)
 
 		for g in ground_hit_list:
 			self.movey = 0 # Stop moving Y on collision with ground
