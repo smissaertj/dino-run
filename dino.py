@@ -79,7 +79,6 @@ class Dino(Sprite):
 
 		for p in platform_hit_list:
 			self.movey = 0
-			#self.rect.bottom = p.rect.top
 			self.is_jumping = False
 
 			# Approach from below
