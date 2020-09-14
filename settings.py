@@ -10,8 +10,8 @@ class Settings:
 		self.screen_width, self.screen_height = 1920, 1080
 		self.screen = pygame.display.set_mode((self.screen_width, self.screen_height)) 
 		self.backdrop = pygame.image.load('img/backdrop.png').convert_alpha()
-		self.fps = 40
-		self.ani = 5  # Animation Cycles
+		self.fps = 50
+		self.ani = 4  # Animation Cycles
 
 		# Dino settings
 		self.dino_steps = 10 # amount of pixels to move left or right

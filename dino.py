@@ -34,15 +34,13 @@ class Dino(Sprite):
 
 		# Set the starting postition in the bottom left of the screen
 		self.rect.x = self.screen_rect.left
-		self.rect.y = self.screen_rect.bottom - self.settings.ground_height
+		#self.rect.y = self.screen_rect.bottom - self.settings.ground_height
 
 		# Create a list of images for the run animation
 		self.images = [] 
 		for i in range(1,8):
 			img = pygame.transform.scale(pygame.image.load(os.path.join('img/d_run', str(i) + '.png')), (self.settings.dino_width, self.settings.dino_height))
 			self.images.append(img)
-
-
 
 
 
@@ -66,6 +64,25 @@ class Dino(Sprite):
 	def update(self):
 		""" Update Dino position """
 
+
+		# Collisions
+		ground_hit_list = spritecollide(self, self.dr_game.grounds, False)
+		platform_hit_list = spritecollide(self, self.dr_game.platforms, False)
+		#print(ground_hit_list)
+		#print(platform_hit_list)
+
+		for g in ground_hit_list:
+			self.movey = 0 # Stop moving Y on collision with ground
+			self.rect.bottom = g.rect.top
+			self.is_jumping = False # Stop jumping on collision with ground
+
+
+		# Jump
+		if self.is_jumping and self.is_falling is False:
+			self.is_falling = True
+			self.movey -= self.settings.dino_jump_height
+
+
 		# Move left
 		if self.movex < 0:
 			self.is_jumping = True # Turn gravity on upon moving
@@ -82,23 +99,6 @@ class Dino(Sprite):
 			if self.frame > 3 * self.settings.ani:
 				self.frame = 0
 			self.image = self.images[self.frame // self.settings.ani]
-		
-
-		# Collisions
-		ground_hit_list = spritecollide(self, self.dr_game.grounds, False)
-		platform_hit_list = spritecollide(self, self.dr_game.platforms, False)
-		#print(ground_hit_list)
-		#print(platform_hit_list)
-
-		for g in ground_hit_list:
-			self.movey = 0 # Stop moving Y on collision with ground
-			self.rect.bottom = g.rect.top
-			self.is_jumping = False # Stop jumping on collision with ground
-
-		# Jump
-		if self.is_jumping and self.is_falling is False:
-			self.is_falling = True
-			self.movey -= self.settings.dino_jump_height
 
 
 		self.rect.x += self.movex
