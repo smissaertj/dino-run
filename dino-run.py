@@ -138,16 +138,16 @@ class DinoRun:
 		## Level 1 - Ground
 		# Set the Y location of the coin, on top of the Ground.
 		yloc = self.settings.coin_l1_yloc
+		xloc = self.settings.coin_xloc
 
-		coin = Coin(self, yloc)
-		available_space_x = self.settings.screen_width
-		number_of_coins = available_space_x // self.settings.ground_width # Each ground tile should have 1 coin
 
-		for coin_number in range(number_of_coins):
+		# Each  tile in our grounds list should have 1 coin. 
+		for tile in self.grounds:
 			coin = Coin(self, yloc)
-			coin.x = (self.settings.ground_width // 4) #* coin_number + self.settings.ground_width # Set the coin in the middle of the Ground tile.
+			coin.x = tile.rect.x + xloc # The coin is in the middle of the ground tile at tile.rect.x + 32px
 			coin.rect.x = coin.x
 			self.coins.add(coin)
+			
 
 
 
