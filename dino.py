@@ -33,8 +33,8 @@ class Dino(Sprite):
 		self.rect = self.image.get_rect()
 
 		# Set the starting postition in the bottom left of the screen
-		self.rect.x = self.screen_rect.left
-		self.rect.y = self.screen_rect.bottom - self.settings.ground_height
+		self.rect.x = 880
+		self.rect.y = 530 #self.screen_rect.bottom - self.settings.ground_height
 
 		# Create a list of images for the run animation
 		self.images = [] 
