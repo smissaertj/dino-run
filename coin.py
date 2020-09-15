@@ -19,9 +19,19 @@ class Coin(Sprite):
 		self.settings = dr_game.settings
 
 
-		# Set the starting image
-		self.image = self.settings.coin_img
+		# Set the starting frame
+		self.frame = 0
 
+		# Create a list of images for the coin animation
+		self.images = []
+
+		for i in range(1,16):
+			img = pygame.transform.scale(pygame.image.load(os.path.join('img/coin/coin_' + str(i) + '.png')), (self.settings.coin_width, self.settings.coin_height))
+			self.images.append(img)
+
+
+		# Set the starting image
+		self.image = self.images[self.frame]
 		# Get the img rect
 		self.rect = self.image.get_rect()
 
@@ -29,9 +39,9 @@ class Coin(Sprite):
 		self.rect.y = yloc
 
 
-		# Create a list of images for the coin animation
-		self.images = []
+	def update(self):
 
-		for i in range(1, 16):
-			img = pygame.transform.scale(pygame.image.load(os.path.join('img/coin/coin_' + str(i) + '.png')), (self.settings.coin_width, self.settings.coin_height))
-			self.images.append(img)
+		self.frame += 1
+		if self.frame >= 15 * self.settings.ani:
+			self.frame = 0
+		self.image = self.images[self.frame // self.settings.ani]

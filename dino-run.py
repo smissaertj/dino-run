@@ -169,6 +169,7 @@ class DinoRun:
 		self.platforms.draw(self.screen)
 		self.coins.draw(self.screen)
 
+
 		self.dino.blitme()
 		
 		pygame.display.flip()
@@ -184,9 +185,12 @@ class DinoRun:
 			self._check_events()
 			self.dino.gravity()
 			self.dino.update()
-
+			self.coins.update()
+			
 			# Redraw the screen at each pass of the loop
 			self._update_screen()
+
+
 
 			self.clock.tick(self.settings.fps)
 			
