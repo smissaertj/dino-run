@@ -5,6 +5,7 @@ from settings import Settings
 from dino import Dino
 from ground import Ground
 from platform import Platform
+from coin import Coin
 
 
 class DinoRun:
@@ -21,11 +22,13 @@ class DinoRun:
 
 		self.grounds = pygame.sprite.Group()
 		self.platforms = pygame.sprite.Group()
+		self.coins = pygame.sprite.Group()
 
 		# Create the ground and platform outside of the main loop
 		# to prevent them from being recreated over and over again in _update_screen(), slowing down the application over time.
 		self._create_ground()
 		self._create_platforms()
+		self._create_coins()
 
 		self.dino = Dino(self)
 
@@ -127,6 +130,30 @@ class DinoRun:
 			platform.rect.x = platform.x
 			self.platforms.add(platform)
 		## END ##
+
+
+	def _create_coins(self):
+		
+
+		## Level 1 - Ground
+		# Set the Y location of the coin, on top of the Ground.
+		yloc = self.settings.coin_l1_yloc
+
+		coin = Coin(self, yloc)
+		available_space_x = self.settings.screen_width
+		number_of_coins = available_space_x // self.settings.ground_width # Each ground tile should have 1 coin
+
+		for coin_number in range(number_of_coins):
+			coin = Coin(self, yloc)
+			coin.x = (self.settings.ground_width // 4) #* coin_number + self.settings.ground_width # Set the coin in the middle of the Ground tile.
+			coin.rect.x = coin.x
+			self.coins.add(coin)
+
+
+
+
+		## Level 2 - Platforms
+		# Set the Y location of the coin, on top of the Platforms
 		
 
 	def _update_screen(self):
@@ -135,6 +162,7 @@ class DinoRun:
 		self.screen.blit(self.settings.backdrop, self.backdropbox)
 		self.grounds.draw(self.screen)
 		self.platforms.draw(self.screen)
+		self.coins.draw(self.screen)
 
 		self.dino.blitme()
 		
