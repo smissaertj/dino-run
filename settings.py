@@ -35,5 +35,4 @@ class Settings:
 		self.coin_width, self.coin_height = 64, 64
 		self.coin_img = pygame.transform.scale(pygame.image.load('img/coin/coin_1.png').convert_alpha(), (self.coin_width, self.coin_height))
 		self.coin_xloc = 32 # The coin is in the middle of the ground tile at tile.rect.x + 32px
-		self.coin_l1_yloc = self.screen_height - (3 * self.coin_height) # Float the level 1 coin on top of the Ground.
 

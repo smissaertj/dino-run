@@ -133,27 +133,32 @@ class DinoRun:
 
 
 	def _create_coins(self):
-		
 
-		## Level 1 - Ground
-		# Set the Y location of the coin, on top of the Ground.
-		yloc = self.settings.coin_l1_yloc
+
+		# Set the X location for all coins
 		xloc = self.settings.coin_xloc
 
 
+		## Level 1 - Ground
 		# Each  tile in our grounds list should have 1 coin. 
 		for tile in self.grounds:
+			# Set the Y location of the coin, on top of the Ground.
+			yloc = tile.rect.top - (1.5 * self.settings.coin_height) # Float on top of Ground Tile
 			coin = Coin(self, yloc)
 			coin.x = tile.rect.x + xloc # The coin is in the middle of the ground tile at tile.rect.x + 32px
 			coin.rect.x = coin.x
 			self.coins.add(coin)
-			
-
-
 
 
 		## Level 2 - Platforms
-		# Set the Y location of the coin, on top of the Platforms
+		# Each tile on a platform should have 1 coin.
+		for tile in self.platforms:
+			yloc = tile.rect.top - (1.5 * self.settings.coin_height)
+			coin = Coin(self, yloc)
+			coin.x = tile.rect.x + xloc
+			coin.rect.x = coin.x
+			self.coins.add(coin)
+
 		
 
 	def _update_screen(self):
