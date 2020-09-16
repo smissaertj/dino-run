@@ -22,6 +22,8 @@ class Dino(Sprite):
 		self.movey = 0
 		self.frame = 0
 
+		self.score = 0
+
 		self.is_jumping = True # Turn gravity on
 		self.is_falling = True
 		
@@ -94,6 +96,8 @@ class Dino(Sprite):
 
 		for c in coin_hit_list.copy():  # We use a copy of the list in order to be able to remove elements in the for loop
 			self.dr_game.coins.remove(c)
+			self.score += 1
+			print(f'You have: {self.score} coins')
 
 		## END Collisions
 
