@@ -1,5 +1,5 @@
 import pygame
-from pygame.sprite import Sprite 
+from pygame.sprite import Sprite, spritecollide
 
 
 
@@ -27,3 +27,13 @@ class Ennemy(Sprite):
 
 		# Store the exact horizontal position
 		self.x = float(self.rect.x)
+
+
+	def update(self):
+		""" Move the row of ennemies to the left """
+		self.x += (self.settings.ennemy_speed * self.settings.ennemy_direction)
+		self.rect.x = self.x
+
+
+
+

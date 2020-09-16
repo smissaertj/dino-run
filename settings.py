@@ -23,6 +23,8 @@ class Settings:
 
 		# Ennemy settings
 		self.ennemy_img = pygame.image.load('img/mace.png').convert_alpha()
+		self.ennemy_speed = 4.0
+		self.ennemy_direction = -1 #  1 is right, -1 is left
 
 		# Ground settings
 		self.ground_img = pygame.image.load('img/grass.png').convert_alpha()

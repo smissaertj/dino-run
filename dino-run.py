@@ -171,14 +171,10 @@ class DinoRun:
 		ennemy = Ennemy(self)
 		ennemy_width, ennemy_height = ennemy.rect.size
 
-
-		# Determine how many ennemies fit on the ground
-		number_of_ennemies = self.settings.screen_width //  ennemy_width
-
+		number_of_ennemies = 4 
 
 		for e in range(number_of_ennemies):
 			self._create_ennemy(e)
-
 
 
 	def _create_ennemy(self, ennemy_number):
@@ -186,9 +182,23 @@ class DinoRun:
 
 		ennemy = Ennemy(self)
 		ennemy_width, ennemy_height = ennemy.rect.size
-		ennemy.x = ennemy_width + 4 * ennemy_width * ennemy_number # Set the ennemies 4 ground tiles apart
+		ennemy.x = self.settings.screen_width + ennemy_width + 4 * ennemy_width * ennemy_number # Set the ennemies 4 ground tiles apart
 		ennemy.rect.x = ennemy.x
 		self.ennemies.add(ennemy)
+
+
+	def _update_ennemies(self):
+		""" Provide a continuous flow of ennemies """
+		
+		# Remove ennemies from the Sprite Group when they move offscreen
+		for e in self.ennemies.copy():
+			if e.rect.right <= 0:
+				self.ennemies.remove(e)
+			print(len(self.ennemies))
+
+		# Spawn a new group of ennemies if the Sprite contains less than 4
+		if len(self.ennemies) < 4:
+			self._create_ennemy_row()
 
 
 	def _update_screen(self):
@@ -217,7 +227,8 @@ class DinoRun:
 			self.dino.gravity()
 			self.dino.update()
 			self.coins.update()
-
+			self.ennemies.update()
+			self._update_ennemies()
 			self.dino.update()
 			
 			# Redraw the screen at each pass of the loop
