@@ -6,7 +6,7 @@ from dino import Dino
 from ground import Ground
 from platform import Platform
 from coin import Coin
-from score import Score
+from ennemy import Ennemy
 
 
 class DinoRun:
@@ -24,15 +24,16 @@ class DinoRun:
 		self.grounds = pygame.sprite.Group()
 		self.platforms = pygame.sprite.Group()
 		self.coins = pygame.sprite.Group()
+		self.ennemies = pygame.sprite.Group()
 
 		# Create the ground and platform outside of the main loop
 		# to prevent them from being recreated over and over again in _update_screen(), slowing down the application over time.
 		self._create_ground()
 		self._create_platforms()
 		self._create_coins()
+		self._create_ennemy_row()
 
 		self.dino = Dino(self)
-		self.score = Score(self)
 
 		# Get the pygame clock for handling FPS
 		self.clock = pygame.time.Clock()
@@ -161,7 +162,33 @@ class DinoRun:
 			coin.x = tile.rect.x + xloc
 			coin.rect.x = coin.x
 			self.coins.add(coin)
-		
+	
+
+
+	def _create_ennemy_row(self):
+		""" Create a row of ennemies """
+
+		ennemy = Ennemy(self)
+		ennemy_width, ennemy_height = ennemy.rect.size
+
+
+		# Determine how many ennemies fit on the ground
+		number_of_ennemies = self.settings.screen_width //  ennemy_width
+
+
+		for e in range(number_of_ennemies):
+			self._create_ennemy(e)
+
+
+
+	def _create_ennemy(self, ennemy_number):
+		""" Spawn an ennemy """
+
+		ennemy = Ennemy(self)
+		ennemy_width, ennemy_height = ennemy.rect.size
+		ennemy.x = ennemy_width + 4 * ennemy_width * ennemy_number # Set the ennemies 4 ground tiles apart
+		ennemy.rect.x = ennemy.x
+		self.ennemies.add(ennemy)
 
 
 	def _update_screen(self):
@@ -171,6 +198,7 @@ class DinoRun:
 		self.grounds.draw(self.screen)
 		self.platforms.draw(self.screen)
 		self.coins.draw(self.screen)
+		self.ennemies.draw(self.screen)
 
 
 		self.dino.blitme()

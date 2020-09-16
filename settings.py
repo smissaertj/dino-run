@@ -20,6 +20,10 @@ class Settings:
 		self.dino_gravity = 2 # amount of pixels to drop/move downwards
 		self.dino_jump_height = 30 # How high to jump
 
+
+		# Ennemy settings
+		self.ennemy_img = pygame.image.load('img/mace.png').convert_alpha()
+
 		# Ground settings
 		self.ground_img = pygame.image.load('img/grass.png').convert_alpha()
 		self.ground_width, self.ground_height = 128, 128
