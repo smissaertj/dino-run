@@ -98,6 +98,10 @@ class Dino(Sprite):
 			self.dr_game.coins.remove(c)
 			self.score += 1
 			print(f'You have: {self.score} coins')
+			print(f'Coins remaining: {len(self.dr_game.coins)}')
+
+			if len(self.dr_game.coins) == 0:
+				self.dr_game._create_coins()
 
 		## END Collisions
 
