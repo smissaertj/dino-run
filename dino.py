@@ -65,9 +65,9 @@ class Dino(Sprite):
 		""" Update Dino position """
 
 
-		# Collisions
+		## Collisions
+		# Ground
 		ground_hit_list = spritecollide(self, self.dr_game.grounds, False)
-		platform_hit_list = spritecollide(self, self.dr_game.platforms, False)
 
 		for g in ground_hit_list:
 			self.movey = 0 # Stop moving Y on collision with ground
@@ -75,6 +75,8 @@ class Dino(Sprite):
 			self.is_jumping = False # Stop jumping on collision with ground
 
 
+		#  Platforms
+		platform_hit_list = spritecollide(self, self.dr_game.platforms, False)
 		for p in platform_hit_list:
 			self.movey = 0
 			self.is_jumping = False
@@ -85,6 +87,16 @@ class Dino(Sprite):
 			else:
 				self.is_jumping = True
 				self.movey += self.settings.dino_gravity
+
+
+		# Coins
+		coin_hit_list = pygame.sprite.spritecollide(self, self.dr_game.coins, False)
+
+		for c in coin_hit_list.copy():  # We use a copy of the list in order to be able to remove elements in the for loop
+			self.dr_game.coins.remove(c)
+
+		## END Collisions
+
 
 
 		# Jump
