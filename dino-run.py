@@ -194,7 +194,6 @@ class DinoRun:
 		for e in self.ennemies.copy():
 			if e.rect.right <= 0:
 				self.ennemies.remove(e)
-			print(len(self.ennemies))
 
 		# Spawn a new group of ennemies if the Sprite contains less than 4
 		if len(self.ennemies) < 4:
