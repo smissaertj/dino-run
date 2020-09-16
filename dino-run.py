@@ -6,6 +6,7 @@ from dino import Dino
 from ground import Ground
 from platform import Platform
 from coin import Coin
+from score import Score
 
 
 class DinoRun:
@@ -31,6 +32,7 @@ class DinoRun:
 		self._create_coins()
 
 		self.dino = Dino(self)
+		self.score = Score(self)
 
 		# Get the pygame clock for handling FPS
 		self.clock = pygame.time.Clock()
@@ -187,6 +189,8 @@ class DinoRun:
 			self.dino.gravity()
 			self.dino.update()
 			self.coins.update()
+
+			self.dino.update()
 			
 			# Redraw the screen at each pass of the loop
 			self._update_screen()
