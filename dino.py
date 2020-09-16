@@ -22,7 +22,7 @@ class Dino(Sprite):
 		self.movey = 0
 		self.frame = 0
 
-		self.score = 0
+		self.score = -1
 
 		self.is_jumping = True # Turn gravity on
 		self.is_falling = True
@@ -97,11 +97,8 @@ class Dino(Sprite):
 		for c in coin_hit_list.copy():  # We use a copy of the list in order to be able to remove elements in the for loop
 			self.dr_game.coins.remove(c)
 			self.score += 1
-			print(f'You have: {self.score} coins')
-			print(f'Coins remaining: {len(self.dr_game.coins)}')
-
 			if len(self.dr_game.coins) == 0:
-				self.dr_game._create_coins()
+				self.dr_game._create_coins() # Spawn a new series of coins when the coin list is exhausted
 
 		## END Collisions
 
