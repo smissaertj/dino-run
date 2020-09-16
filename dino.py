@@ -97,6 +97,7 @@ class Dino(Sprite):
 		for c in coin_hit_list.copy():  # We use a copy of the list in order to be able to remove elements in the for loop
 			self.dr_game.coins.remove(c)
 			self.score += 1
+
 			if len(self.dr_game.coins) == 0:
 				self.dr_game._create_coins() # Spawn a new series of coins when the coin list is exhausted
 

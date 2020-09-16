@@ -18,7 +18,13 @@ class Settings:
 		self.dino_width, self.dino_height = 138, 147
 		self.dino_img = pygame.transform.scale(pygame.image.load('img/dino_idle.png').convert_alpha(), (self.dino_width, self.dino_height))
 		self.dino_gravity = 2 # amount of pixels to drop/move downwards
-		self.dino_jump_height = 40 # How high to jump
+		self.dino_jump_height = 30 # How high to jump
+
+
+		# Ennemy settings
+		self.ennemy_img = pygame.image.load('img/mace.png').convert_alpha()
+		self.ennemy_speed = 4.0
+		self.ennemy_direction = -1 #  1 is right, -1 is left
 
 		# Ground settings
 		self.ground_img = pygame.image.load('img/grass.png').convert_alpha()
