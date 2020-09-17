@@ -101,6 +101,13 @@ class Dino(Sprite):
 			if len(self.dr_game.coins) == 0:
 				self.dr_game._create_coins() # Spawn a new series of coins when the coin list is exhausted
 
+
+		# Ennemies
+		ennemy_hit_list = pygame.sprite.spritecollide(self, self.dr_game.ennemies, False)
+
+		for e in ennemy_hit_list:
+			print('HIT')
+
 		## END Collisions
 
 
