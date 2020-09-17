@@ -101,16 +101,7 @@ class Dino(Sprite):
 			if len(self.dr_game.coins) == 0:
 				self.dr_game._create_coins() # Spawn a new series of coins when the coin list is exhausted
 
-
-		# Ennemies
-		ennemy_hit_list = pygame.sprite.spritecollide(self, self.dr_game.ennemies, False)
-
-		for e in ennemy_hit_list:
-			print('HIT')
-
 		## END Collisions
-
-
 
 		# Jump
 		if self.is_jumping and self.is_falling is False:
@@ -138,6 +129,13 @@ class Dino(Sprite):
 
 		self.rect.x += self.movex
 		self.rect.y += self.movey
+
+
+	def _restart(self):
+		""" Set the dino back to the starting position """
+				# Set the starting postition in the bottom left of the screen
+		self.rect.x = 880
+		self.rect.y = 530
 
 
 	def blitme(self):

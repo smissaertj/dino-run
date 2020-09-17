@@ -1,11 +1,13 @@
 import sys
 import pygame
+from time import sleep
 
 from settings import Settings
-from dino import Dino
+from game_stats import GameStats
 from ground import Ground
 from platform import Platform
 from coin import Coin
+from dino import Dino
 from ennemy import Ennemy
 
 
@@ -21,18 +23,23 @@ class DinoRun:
 		self.backdropbox = self.screen.get_rect()
 		pygame.display.set_caption("Dino Run!")
 
+		# Initialize Sprite Group lists to hold images
 		self.grounds = pygame.sprite.Group()
 		self.platforms = pygame.sprite.Group()
 		self.coins = pygame.sprite.Group()
 		self.ennemies = pygame.sprite.Group()
 
-		# Create the ground and platform outside of the main loop
+		# Create the ground, platform and coins outside of the main loop
 		# to prevent them from being recreated over and over again in _update_screen(), slowing down the application over time.
 		self._create_ground()
 		self._create_platforms()
 		self._create_coins()
 		self._create_ennemy_row()
 
+		# Create an instance to store game statistics before the Dino is spawned
+		self.stats = GameStats(self)
+
+		# Create the player controllable Dino
 		self.dino = Dino(self)
 
 		# Get the pygame clock for handling FPS
@@ -200,6 +207,34 @@ class DinoRun:
 			self._create_ennemy_row()
 
 
+		if pygame.sprite.spritecollideany(self.dino, self.ennemies):
+			self._dino_hit()
+
+
+	def _dino_hit(self):
+		""" Respond to the dino being hit by ennemy """
+
+		if self.stats.dinos_left > 0:
+
+			# Decrease dino_limit
+			self.stats.dinos_left -= 1
+
+			# Remove remaining coins
+			self.coins.empty()
+
+			# Remove ennemies
+			self.ennemies.empty()
+
+			# Pause the game before spawning coins and moving to _update_screen
+			sleep(0.5)
+			self._create_coins()
+			self.dino._restart()
+			# Not spawning ennemies here as the ennemies list is repopulated when there's less than 4. 
+		else: # set the game to a non active state
+			self.stats.game_active = False
+
+
+
 	def _update_screen(self):
 		""" Update images on the screen and flip to the new screen """
 
@@ -223,12 +258,15 @@ class DinoRun:
 			# Watch for input events:
 		
 			self._check_events()
-			self.dino.gravity()
-			self.dino.update()
-			self.coins.update()
-			self.ennemies.update()
-			self._update_ennemies()
-			self.dino.update()
+
+			# If the game is in an active state, create objects
+			if self.stats.game_active:
+				self.dino.gravity()
+				self.dino.update()
+				self.coins.update()
+				self.ennemies.update()
+				self._update_ennemies()
+				self.dino.update()
 			
 			# Redraw the screen at each pass of the loop
 			self._update_screen()
