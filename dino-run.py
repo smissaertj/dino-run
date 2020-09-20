@@ -270,9 +270,6 @@ class DinoRun:
 			
 			# Redraw the screen at each pass of the loop
 			self._update_screen()
-
-
-
 			self.clock.tick(self.settings.fps)
 			
 			

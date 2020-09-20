@@ -6,8 +6,8 @@ class GameStats():
 		self.settings = dr_game.settings
 		self.reset_stats()
 
-		# Set an active state for the game
-		self.game_active = True
+		# Set an inctive state for the game
+		self.game_active = False
 
 
 	def reset_stats(self):
