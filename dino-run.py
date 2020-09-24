@@ -102,6 +102,9 @@ class DinoRun:
 			self.ennemies.empty()
 			self._create_coins()
 			self._create_ennemy_row()
+
+			# hide the mouse cursor
+			pygame.mouse.set_visible(False)
 			
 
 	def _create_ground(self):
@@ -261,6 +264,8 @@ class DinoRun:
 			# Not spawning ennemies here as the ennemies list is repopulated when there's less than 4. 
 		else: # set the game to a non active state
 			self.stats.game_active = False
+			# Show the mouse cursor again
+			pygame.mouse.set_visible(True)
 
 
 
