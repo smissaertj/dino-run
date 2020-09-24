@@ -86,7 +86,9 @@ class DinoRun:
 
 	def _check_play_button(self, mouse_pos):
 		""" Set the game state to active when player clicks Play button """
-		if self.play_button.rect.collidepoint(mouse_pos):
+		button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+
+		if button_clicked and not self.stats.game_active:
 	
 			# reset the game statistics
 			self.stats.reset_stats()
