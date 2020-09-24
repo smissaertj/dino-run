@@ -60,6 +60,9 @@ class DinoRun:
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_q:
 					sys.exit()
+			elif event.type == pygame.MOUSEBUTTONDOWN:
+				mouse_pos = pygame.mouse.get_pos()
+				self._check_play_button(mouse_pos)
 
 
 			if self.stats.game_active:
@@ -80,6 +83,11 @@ class DinoRun:
 						self.dino.control(-self.settings.dino_steps, 0)
 						self.dino.image = self.dino.image_idle
 
+
+	def _check_play_button(self, mouse_pos):
+		""" Set the game state to active when player clicks Play button """
+		if self.play_button.rect.collidepoint(mouse_pos):
+			self.stats.game_active = True
 
 
 	def _create_ground(self):
@@ -254,7 +262,7 @@ class DinoRun:
 
 		self.dino.blitme()
 
-		# Draw the play button above all other elements
+		# Draw the play button above all other elements when the game is in an inactive state
 		if not self.stats.game_active:
 			self.play_button.draw_button()
 
