@@ -4,11 +4,13 @@ from time import sleep
 
 from settings import Settings
 from game_stats import GameStats
+from button import Button
 from ground import Ground
 from platform import Platform
 from coin import Coin
 from dino import Dino
 from ennemy import Ennemy
+
 
 
 class DinoRun:
@@ -42,6 +44,9 @@ class DinoRun:
 		# Create the player controllable Dino
 		self.dino = Dino(self)
 
+		# Make the Play button
+		self.play_button = Button(self, "Play")
+
 		# Get the pygame clock for handling FPS
 		self.clock = pygame.time.Clock()
 
@@ -52,26 +57,28 @@ class DinoRun:
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				sys.exit()
-
-
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_q:
 					sys.exit()
-				if event.key == pygame.K_LEFT:
-					self.dino.control(-self.settings.dino_steps, 0)
-				if event.key == pygame.K_RIGHT:
-					self.dino.control(self.settings.dino_steps, 0)
-				if event.key == pygame.K_UP:
-					self.dino.jump()
 
-			if event.type == pygame.KEYUP:
-				if event.key == pygame.K_LEFT:
-					self.dino.control(self.settings.dino_steps, 0)
-					self.dino.image = pygame.transform.flip(self.dino.image_idle, True, False)
-					
-				if event.key == pygame.K_RIGHT:
-					self.dino.control(-self.settings.dino_steps, 0)
-					self.dino.image = self.dino.image_idle
+
+			if self.stats.game_active:
+				if event.type == pygame.KEYDOWN:
+					if event.key == pygame.K_LEFT:
+						self.dino.control(-self.settings.dino_steps, 0)
+					if event.key == pygame.K_RIGHT:
+						self.dino.control(self.settings.dino_steps, 0)
+					if event.key == pygame.K_UP:
+						self.dino.jump()
+
+				if event.type == pygame.KEYUP:
+					if event.key == pygame.K_LEFT:
+						self.dino.control(self.settings.dino_steps, 0)
+						self.dino.image = pygame.transform.flip(self.dino.image_idle, True, False)
+						
+					if event.key == pygame.K_RIGHT:
+						self.dino.control(-self.settings.dino_steps, 0)
+						self.dino.image = self.dino.image_idle
 
 
 
@@ -246,6 +253,11 @@ class DinoRun:
 
 
 		self.dino.blitme()
+
+		# Draw the play button above all other elements
+		if not self.stats.game_active:
+			self.play_button.draw_button()
+
 		
 		pygame.display.flip()
 
