@@ -60,7 +60,7 @@ class DinoRun:
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_q:
 					sys.exit()
-			elif event.type == pygame.MOUSEBUTTONDOWN:
+			if event.type == pygame.MOUSEBUTTONDOWN:
 				mouse_pos = pygame.mouse.get_pos()
 				self._check_play_button(mouse_pos)
 
@@ -87,8 +87,20 @@ class DinoRun:
 	def _check_play_button(self, mouse_pos):
 		""" Set the game state to active when player clicks Play button """
 		if self.play_button.rect.collidepoint(mouse_pos):
+	
+			# reset the game statistics
+			self.stats.reset_stats()
+
+			# set the game state to active
 			self.stats.game_active = True
 
+			# reset coins, ennemies and Dino
+			self.dino._restart()
+			self.coins.empty()
+			self.ennemies.empty()
+			self._create_coins()
+			self._create_ennemy_row()
+			
 
 	def _create_ground(self):
 		ground = Ground(self)
