@@ -256,18 +256,10 @@ class DinoRun:
 			# Decrease dino_limit
 			self.stats.dinos_left -= 1
 
-			# Remove remaining coins
-			self.coins.empty()
-
-			# Remove ennemies
-			self.ennemies.empty()
-
 			# Pause the game before spawning coins and moving to _update_screen
 			sleep(0.5)
-			self._create_coins()
 			self.dino._restart()
 
-			# Not spawning ennemies here as the ennemies list is repopulated when there's less than 4. 
 
 		else: 
 			# set the game to a non active state
