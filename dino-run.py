@@ -65,19 +65,19 @@ class DinoRun:
 					sys.exit()
 
 			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_LEFT:
+				if event.key == pygame.K_LEFT or event.key == pygame.K_a:
 					self.dino.control(-self.settings.dino_steps, 0)
-				if event.key == pygame.K_RIGHT:
+				if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
 					self.dino.control(self.settings.dino_steps, 0)
-				if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
+				if event.key == pygame.K_UP or event.key == pygame.K_SPACE or event.key == pygame.K_w:
 					self.dino.jump()
 			
 			if event.type == pygame.KEYUP:
-				if event.key == pygame.K_LEFT:
+				if event.key == pygame.K_LEFT or event.key == pygame.K_a:
 					self.dino.control(self.settings.dino_steps, 0)
 					self.dino.image = pygame.transform.flip(self.dino.image_idle, True, False)
 					
-				if event.key == pygame.K_RIGHT:
+				if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
 					self.dino.control(-self.settings.dino_steps, 0)
 					self.dino.image = self.dino.image_idle
 
