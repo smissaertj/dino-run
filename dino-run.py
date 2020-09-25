@@ -4,6 +4,7 @@ from time import sleep
 
 from settings import Settings
 from game_stats import GameStats
+from scoreboard import Scoreboard
 from button import Button
 from ground import Ground
 from platform import Platform
@@ -40,6 +41,7 @@ class DinoRun:
 
 		# Create an instance to store game statistics before the Dino is spawned
 		self.stats = GameStats(self)
+		self.sb = Scoreboard(self)
 
 		# Create the player controllable Dino
 		self.dino = Dino(self)
@@ -107,6 +109,9 @@ class DinoRun:
 
 			# set the game state to active
 			self.stats.game_active = True
+
+			#self.stats.score = 0 # reset the score
+			self.sb.prep_score()
 
 			# hide the mouse cursor
 			pygame.mouse.set_visible(False)
@@ -256,9 +261,10 @@ class DinoRun:
 			# Decrease dino_limit
 			self.stats.dinos_left -= 1
 
-			# Pause the game before spawning coins and moving to _update_screen
+			# Pause the game before setting the Dino back at the start position.
 			sleep(0.5)
 			self.dino._restart()
+
 
 
 		else: 
@@ -278,9 +284,8 @@ class DinoRun:
 		self.platforms.draw(self.screen)
 		self.coins.draw(self.screen)
 		self.ennemies.draw(self.screen)
-
-
 		self.dino.blitme()
+		self.sb.show_score()
 
 
 		# Draw the play button above all other elements when the game is in an inactive state

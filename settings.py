@@ -48,4 +48,9 @@ class Settings:
 		self.play_button_width, self.play_button_height = 200, 50
 		self.play_button_bg_color = (255, 51, 51) # Red
 		self.play_button_txt_color = (255, 255, 255) # White
+
+		# Scoring
+		self.score_txt_color = (30, 30, 30) # Black
+		
+
 		
