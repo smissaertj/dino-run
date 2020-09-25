@@ -69,7 +69,7 @@ class DinoRun:
 					self.dino.control(-self.settings.dino_steps, 0)
 				if event.key == pygame.K_RIGHT:
 					self.dino.control(self.settings.dino_steps, 0)
-				if event.key == pygame.K_UP:
+				if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
 					self.dino.jump()
 			
 			if event.type == pygame.KEYUP:
