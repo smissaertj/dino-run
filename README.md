@@ -26,8 +26,5 @@ The Q key will quit the game.
 
 
 ### Credits
-* Background:
-* Dinosaur:
-* Ground/Platform tiles:
-* Coins:
-* Ennemy:
+* Background / Tiles / Coins / Ennemy: https://bayat.itch.io/platform-game-assets
+* Dinosaur: https://www.gameart2d.com/free-dino-sprites.html
