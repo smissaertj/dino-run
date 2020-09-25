@@ -55,38 +55,35 @@ class DinoRun:
 		""" Respond to input events """
 
 		for event in pygame.event.get():
-			print(event)
+
 			if event.type == pygame.QUIT:
 				sys.exit()
 			elif event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_q:
 					sys.exit()
+
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_LEFT:
+					self.dino.control(-self.settings.dino_steps, 0)
+				if event.key == pygame.K_RIGHT:
+					self.dino.control(self.settings.dino_steps, 0)
+				if event.key == pygame.K_UP:
+					self.dino.jump()
 			
-			elif event.type == pygame.MOUSEBUTTONDOWN:
-				mouse_pos = pygame.mouse.get_pos()
-				self._check_play_button(mouse_pos)
+			if event.type == pygame.KEYUP:
+				if event.key == pygame.K_LEFT:
+					self.dino.control(self.settings.dino_steps, 0)
+					self.dino.image = pygame.transform.flip(self.dino.image_idle, True, False)
+					
+				if event.key == pygame.K_RIGHT:
+					self.dino.control(-self.settings.dino_steps, 0)
+					self.dino.image = self.dino.image_idle
 
-
-			if self.stats.game_active:
-
-				if event.type == pygame.KEYDOWN:
-					if event.key == pygame.K_LEFT:
-						self.dino.control(-self.settings.dino_steps, 0)
-					if event.key == pygame.K_RIGHT:
-						self.dino.control(self.settings.dino_steps, 0)
-					if event.key == pygame.K_UP:
-						self.dino.jump()
-				
-				if event.type == pygame.KEYUP:
-					if event.key == pygame.K_LEFT:
-						self.dino.control(self.settings.dino_steps, 0)
-						self.dino.image = pygame.transform.flip(self.dino.image_idle, True, False)
-						
-					if event.key == pygame.K_RIGHT:
-						self.dino.control(-self.settings.dino_steps, 0)
-						self.dino.image = self.dino.image_idle
-						
-				
+			# If the game state is not active, enable the Play Button
+			if not self.stats.game_active:
+				if event.type == pygame.MOUSEBUTTONDOWN:
+					mouse_pos = pygame.mouse.get_pos()
+					self._check_play_button(mouse_pos)
 
 
 	def _check_play_button(self, mouse_pos):
@@ -96,8 +93,7 @@ class DinoRun:
 		if button_clicked and not self.stats.game_active:
 			
 
-			# reset coins, ennemies and Dino
-			self.dino._restart()
+			# reset coins and ennemies
 			self.coins.empty()
 			self.ennemies.empty()
 			self._create_coins()
@@ -105,6 +101,9 @@ class DinoRun:
 
 			# reset the game statistics
 			self.stats.reset_stats()
+
+			# set Dino to start position
+			self.dino._restart()
 
 			# set the game state to active
 			self.stats.game_active = True
