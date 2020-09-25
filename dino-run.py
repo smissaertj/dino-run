@@ -55,17 +55,20 @@ class DinoRun:
 		""" Respond to input events """
 
 		for event in pygame.event.get():
+			print(event)
 			if event.type == pygame.QUIT:
 				sys.exit()
-			if event.type == pygame.KEYDOWN:
+			elif event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_q:
 					sys.exit()
-			if event.type == pygame.MOUSEBUTTONDOWN:
+			
+			elif event.type == pygame.MOUSEBUTTONDOWN:
 				mouse_pos = pygame.mouse.get_pos()
 				self._check_play_button(mouse_pos)
 
 
 			if self.stats.game_active:
+
 				if event.type == pygame.KEYDOWN:
 					if event.key == pygame.K_LEFT:
 						self.dino.control(-self.settings.dino_steps, 0)
@@ -73,7 +76,7 @@ class DinoRun:
 						self.dino.control(self.settings.dino_steps, 0)
 					if event.key == pygame.K_UP:
 						self.dino.jump()
-
+				
 				if event.type == pygame.KEYUP:
 					if event.key == pygame.K_LEFT:
 						self.dino.control(self.settings.dino_steps, 0)
@@ -82,6 +85,8 @@ class DinoRun:
 					if event.key == pygame.K_RIGHT:
 						self.dino.control(-self.settings.dino_steps, 0)
 						self.dino.image = self.dino.image_idle
+						
+				
 
 
 	def _check_play_button(self, mouse_pos):
@@ -89,12 +94,7 @@ class DinoRun:
 		button_clicked = self.play_button.rect.collidepoint(mouse_pos)
 
 		if button_clicked and not self.stats.game_active:
-	
-			# reset the game statistics
-			self.stats.reset_stats()
-
-			# set the game state to active
-			self.stats.game_active = True
+			
 
 			# reset coins, ennemies and Dino
 			self.dino._restart()
@@ -102,6 +102,12 @@ class DinoRun:
 			self.ennemies.empty()
 			self._create_coins()
 			self._create_ennemy_row()
+
+			# reset the game statistics
+			self.stats.reset_stats()
+
+			# set the game state to active
+			self.stats.game_active = True
 
 			# hide the mouse cursor
 			pygame.mouse.set_visible(False)
@@ -261,9 +267,13 @@ class DinoRun:
 			sleep(0.5)
 			self._create_coins()
 			self.dino._restart()
+
 			# Not spawning ennemies here as the ennemies list is repopulated when there's less than 4. 
-		else: # set the game to a non active state
+
+		else: 
+			# set the game to a non active state
 			self.stats.game_active = False
+
 			# Show the mouse cursor again
 			pygame.mouse.set_visible(True)
 
@@ -280,6 +290,7 @@ class DinoRun:
 
 
 		self.dino.blitme()
+
 
 		# Draw the play button above all other elements when the game is in an inactive state
 		if not self.stats.game_active:
@@ -305,7 +316,8 @@ class DinoRun:
 				self.coins.update()
 				self.ennemies.update()
 				self._update_ennemies()
-				self.dino.update()
+
+				
 			
 			# Redraw the screen at each pass of the loop
 			self._update_screen()

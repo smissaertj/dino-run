@@ -133,14 +133,13 @@ class Dino(Sprite):
 
 	def _restart(self):
 		""" Set the dino back to the starting position """
-				# Set the starting postition in the bottom left of the screen
 		self.rect.x = 880
 		self.rect.y = 530
 
 
+
 	def blitme(self):
 		""" Draw the dino at the current position """
-
 		self.screen.blit(self.image, self.rect)
 
 
