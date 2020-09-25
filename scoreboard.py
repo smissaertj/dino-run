@@ -23,7 +23,7 @@ class Scoreboard:
 
 	def prep_score(self):
 		""" Turn the score into an image """
-		score_str = str(f'Coins: {self.stats.score}')
+		score_str = str(f'Health: {self.stats.dinos_left}  |  Coins: {self.stats.score}')
 		self.score_image = self.font.render(score_str, True, self.text_color)
 
 

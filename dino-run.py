@@ -264,10 +264,11 @@ class DinoRun:
 			# Pause the game before setting the Dino back at the start position.
 			sleep(0.5)
 			self.dino._restart()
+			self.sb.prep_score() # Update score / health display
 
 
 
-		else: 
+		elif self.stats.dinos_left == 0: 
 			# set the game to a non active state
 			self.stats.game_active = False
 
