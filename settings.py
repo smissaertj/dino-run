@@ -50,7 +50,7 @@ class Settings:
 		self.play_button_txt_color = (255, 255, 255) # White
 
 		# Scoring
-		self.score_txt_color = (30, 30, 30) # Black
+		self.score_txt_color = (0, 153, 0) # Black
 		
 
 		
