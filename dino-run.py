@@ -7,7 +7,7 @@ from game_stats import GameStats
 from scoreboard import Scoreboard
 from button import Button
 from ground import Ground
-from platform import Platform
+from platforms import Platform
 from coin import Coin
 from dino import Dino
 from ennemy import Ennemy
