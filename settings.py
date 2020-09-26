@@ -15,7 +15,7 @@ class Settings:
 
 		# Dino settings
 		self.dino_steps = 15 # amount of pixels to move left or right
-		self.dino_width, self.dino_height = 138, 147
+		self.dino_width, self.dino_height = 100, 106 #138, 147
 		self.dino_img = pygame.transform.scale(pygame.image.load('img/dino_idle.png').convert_alpha(), (self.dino_width, self.dino_height))
 		self.dino_gravity = 2 # amount of pixels to drop/move downwards
 		self.dino_jump_height = 40 # How high to jump
@@ -39,9 +39,9 @@ class Settings:
 
 
 		# Coin settings
-		self.coin_width, self.coin_height = 64, 64
+		self.coin_width, self.coin_height = 48, 48 #64, 64
 		self.coin_img = pygame.transform.scale(pygame.image.load('img/coin/coin_1.png').convert_alpha(), (self.coin_width, self.coin_height))
-		self.coin_xloc = 32 # The coin is in the middle of the ground tile at tile.rect.x + 32px
+		self.coin_xloc = 40 # The coin is in the middle of the ground tile at tile.rect.x + 32px
 
 
 		# Play Button

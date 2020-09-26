@@ -276,7 +276,6 @@ class DinoRun:
 			pygame.mouse.set_visible(True)
 
 
-
 	def _update_screen(self):
 		""" Update images on the screen and flip to the new screen """
 
@@ -309,6 +308,7 @@ class DinoRun:
 			# If the game is in an active state, create objects
 			if self.stats.game_active:
 				self.dino.gravity()
+				self.dino.check_edges()
 				self.dino.update()
 				self.coins.update()
 				self.enemies.update()

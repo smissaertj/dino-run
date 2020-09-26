@@ -32,9 +32,9 @@ class Dino(Sprite):
 		# Get the img rect
 		self.rect = self.image.get_rect()
 
-		# Set the starting postition in the bottom left of the screen
-		self.rect.x = 880
-		self.rect.y = 530 #self.screen_rect.bottom - self.settings.ground_height
+		# Set the starting postition on the middle of the lvl 1 platform
+		self.rect.x = 910
+		self.rect.y = -self.settings.dino_height # Dino is not visible until Play button is clicked, falls from the sky.
 
 		# Create a list of images for the run animation
 		self.images = [] 
@@ -130,11 +130,25 @@ class Dino(Sprite):
 		self.rect.x += self.movex
 		self.rect.y += self.movey
 
+		print(self.rect.x)
+
+
+	def check_edges(self):
+		""" Reposition or stop the Dino when it hits a screen edge """
+
+		screen_rect = self.screen.get_rect()
+
+		if self.rect.right >= screen_rect.right:
+			self.rect.x = screen_rect.left # Reposition the Dino at the left screen edge if moving off screen to the right.
+
+		elif self.rect.left <= 0:
+			self.rect.x = 0 # Prevent the Dino from moving off the screen to the left.
+
 
 	def _restart(self):
 		""" Set the dino back to the starting position """
-		self.rect.x = 880
-		self.rect.y = 530
+		self.rect.x = 910
+		self.rect.y = -self.settings.dino_height
 
 
 
