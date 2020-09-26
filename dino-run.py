@@ -10,7 +10,7 @@ from ground import Ground
 from platforms import Platform
 from coin import Coin
 from dino import Dino
-from ennemy import Ennemy
+from enemy import Enemy
 
 
 
@@ -30,14 +30,14 @@ class DinoRun:
 		self.grounds = pygame.sprite.Group()
 		self.platforms = pygame.sprite.Group()
 		self.coins = pygame.sprite.Group()
-		self.ennemies = pygame.sprite.Group()
+		self.enemies = pygame.sprite.Group()
 
 		# Create the ground, platform and coins outside of the main loop
 		# to prevent them from being recreated over and over again in _update_screen(), slowing down the application over time.
 		self._create_ground()
 		self._create_platforms()
 		self._create_coins()
-		self._create_ennemy_row()
+		self._create_enemy_row()
 
 		# Create an instance to store game statistics before the Dino is spawned
 		self.stats = GameStats(self)
@@ -95,11 +95,11 @@ class DinoRun:
 		if button_clicked and not self.stats.game_active:
 			
 
-			# reset coins and ennemies
+			# reset coins and enemies
 			self.coins.empty()
-			self.ennemies.empty()
+			self.enemies.empty()
 			self._create_coins()
-			self._create_ennemy_row()
+			self._create_enemy_row()
 
 			# reset the game statistics
 			self.stats.reset_stats()
@@ -214,47 +214,47 @@ class DinoRun:
 	
 
 
-	def _create_ennemy_row(self):
-		""" Create a row of ennemies """
+	def _create_enemy_row(self):
+		""" Create a row of enemies """
 
-		ennemy = Ennemy(self)
-		ennemy_width, ennemy_height = ennemy.rect.size
+		enemy = Enemy(self)
+		enemy_width, enemy_height = enemy.rect.size
 
-		number_of_ennemies = 4 
+		number_of_enemies = 4 
 
-		for e in range(number_of_ennemies):
-			self._create_ennemy(e)
-
-
-	def _create_ennemy(self, ennemy_number):
-		""" Spawn an ennemy """
-
-		ennemy = Ennemy(self)
-		ennemy_width, ennemy_height = ennemy.rect.size
-		ennemy.x = self.settings.screen_width + ennemy_width + 4 * ennemy_width * ennemy_number # Set the ennemies 4 ground tiles apart
-		ennemy.rect.x = ennemy.x
-		self.ennemies.add(ennemy)
+		for e in range(number_of_enemies):
+			self._create_enemy(e)
 
 
-	def _update_ennemies(self):
-		""" Provide a continuous flow of ennemies """
+	def _create_enemy(self, enemy_number):
+		""" Spawn an enemy """
+
+		enemy = Enemy(self)
+		enemy_width, enemy_height = enemy.rect.size
+		enemy.x = self.settings.screen_width + enemy_width + 4 * enemy_width * enemy_number # Set the enemies 4 ground tiles apart
+		enemy.rect.x = enemy.x
+		self.enemies.add(enemy)
+
+
+	def _update_enemies(self):
+		""" Provide a continuous flow of enemies """
 		
-		# Remove ennemies from the Sprite Group when they move offscreen
-		for e in self.ennemies.copy():
+		# Remove enemies from the Sprite Group when they move offscreen
+		for e in self.enemies.copy():
 			if e.rect.right <= 0:
-				self.ennemies.remove(e)
+				self.enemies.remove(e)
 
-		# Spawn a new group of ennemies if the Sprite contains less than 4
-		if len(self.ennemies) < 4:
-			self._create_ennemy_row()
+		# Spawn a new group of enemies if the Sprite contains less than 4
+		if len(self.enemies) < 4:
+			self._create_enemy_row()
 
 
-		if pygame.sprite.spritecollideany(self.dino, self.ennemies):
+		if pygame.sprite.spritecollideany(self.dino, self.enemies):
 			self._dino_hit()
 
 
 	def _dino_hit(self):
-		""" Respond to the dino being hit by ennemy """
+		""" Respond to the dino being hit by enemy """
 
 		if self.stats.dinos_left > 0:
 
@@ -284,7 +284,7 @@ class DinoRun:
 		self.grounds.draw(self.screen)
 		self.platforms.draw(self.screen)
 		self.coins.draw(self.screen)
-		self.ennemies.draw(self.screen)
+		self.enemies.draw(self.screen)
 		self.dino.blitme()
 		self.sb.show_score()
 
@@ -311,8 +311,8 @@ class DinoRun:
 				self.dino.gravity()
 				self.dino.update()
 				self.coins.update()
-				self.ennemies.update()
-				self._update_ennemies()
+				self.enemies.update()
+				self._update_enemies()
 
 				
 			

@@ -3,7 +3,7 @@ from pygame.sprite import Sprite, spritecollide
 
 
 
-class Ennemy(Sprite):
+class Enemy(Sprite):
 	""" Class to represent a single ennemy """
 
 	def __init__(self, dr_game):
