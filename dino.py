@@ -130,7 +130,6 @@ class Dino(Sprite):
 		self.rect.x += self.movex
 		self.rect.y += self.movey
 
-		print(self.rect.x)
 
 
 	def check_edges(self):
