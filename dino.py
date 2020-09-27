@@ -1,6 +1,7 @@
 import os
 import pygame
 from pygame.sprite import Sprite, spritecollide
+from time import sleep
 
 
 
@@ -62,7 +63,7 @@ class Dino(Sprite):
 
 
 	def update(self):
-		""" Update Dino position """
+		""" Update Dino position and detect collisions with other objects"""
 
 
 		## Collisions
@@ -101,8 +102,39 @@ class Dino(Sprite):
 			if len(self.dr_game.coins) == 0:
 				self.dr_game._create_coins() # Spawn a new series of coins when the coin list is exhausted
 
+
+		# Enemies
+		enemy_hit_list = pygame.sprite.spritecollide(self, self.dr_game.enemies, False)
+
+		for e in enemy_hit_list.copy():
+			if self.dr_game.stats.dinos_left > 0:
+
+				# Decrease dino_limit
+				self.dr_game.stats.dinos_left -= 1
+
+				# Pause the game before setting the Dino back at the start position.
+				sleep(0.5)
+				self._restart()
+				self.dr_game.sb.prep_score() # Update score / health display
+
+			elif self.dr_game.stats.dinos_left == 0:
+				# set the game to a non active state
+				self.dr_game.stats.game_active = False
+
+				# Show the mouse cursor again
+				pygame.mouse.set_visible(True)
+
+
+		# Screen Edges
+		if self.rect.right >= self.screen_rect.right:
+			self.rect.x = self.screen_rect.left
+
+		elif self.rect.left <= 0:
+			self.rect.x = 0
 		## END Collisions
 
+
+		## Movement
 		# Jump
 		if self.is_jumping and self.is_falling is False:
 			self.is_falling = True
@@ -130,18 +162,6 @@ class Dino(Sprite):
 		self.rect.x += self.movex
 		self.rect.y += self.movey
 
-
-
-	def check_edges(self):
-		""" Reposition or stop the Dino when it hits a screen edge """
-
-		screen_rect = self.screen.get_rect()
-
-		if self.rect.right >= screen_rect.right:
-			self.rect.x = screen_rect.left # Reposition the Dino at the left screen edge if moving off screen to the right.
-
-		elif self.rect.left <= 0:
-			self.rect.x = 0 # Prevent the Dino from moving off the screen to the left.
 
 
 	def _restart(self):

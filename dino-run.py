@@ -1,6 +1,5 @@
 import sys
 import pygame
-from time import sleep
 
 from settings import Settings
 from game_stats import GameStats
@@ -93,8 +92,6 @@ class DinoRun:
 		button_clicked = self.play_button.rect.collidepoint(mouse_pos)
 
 		if button_clicked and not self.stats.game_active:
-			
-
 			# reset coins and enemies
 			self.coins.empty()
 			self.enemies.empty()
@@ -110,7 +107,7 @@ class DinoRun:
 			# set the game state to active
 			self.stats.game_active = True
 
-			#self.stats.score = 0 # reset the score
+			# update score display
 			self.sb.prep_score()
 
 			# hide the mouse cursor
@@ -185,7 +182,7 @@ class DinoRun:
 
 
 	def _create_coins(self):
-
+		""" Create a coin on each tile """
 
 		# Set the X location for all coins
 		xloc = self.settings.coin_xloc
@@ -204,14 +201,12 @@ class DinoRun:
 
 		## Level 2 - Platforms
 		# Each tile on a platform should have 1 coin.
-		
 		for tile in self.platforms:
 			yloc = tile.rect.top - (1.5 * self.settings.coin_height)
 			coin = Coin(self, yloc)
 			coin.x = tile.rect.x + xloc
 			coin.rect.x = coin.x
 			self.coins.add(coin)
-	
 
 
 	def _create_enemy_row(self):
@@ -249,33 +244,6 @@ class DinoRun:
 			self._create_enemy_row()
 
 
-		if pygame.sprite.spritecollideany(self.dino, self.enemies):
-			self._dino_hit()
-
-
-	def _dino_hit(self):
-		""" Respond to the dino being hit by enemy """
-
-		if self.stats.dinos_left > 0:
-
-			# Decrease dino_limit
-			self.stats.dinos_left -= 1
-
-			# Pause the game before setting the Dino back at the start position.
-			sleep(0.5)
-			self.dino._restart()
-			self.sb.prep_score() # Update score / health display
-
-
-
-		elif self.stats.dinos_left == 0: 
-			# set the game to a non active state
-			self.stats.game_active = False
-
-			# Show the mouse cursor again
-			pygame.mouse.set_visible(True)
-
-
 	def _update_screen(self):
 		""" Update images on the screen and flip to the new screen """
 
@@ -292,31 +260,26 @@ class DinoRun:
 		if not self.stats.game_active:
 			self.play_button.draw_button()
 
-		
 		pygame.display.flip()
-
 
 
 	def run_game(self):
 		""" Start the game loop """
 
 		while True:
-			# Watch for input events:
-		
+			# Always check for input events
 			self._check_events()
 
-			# If the game is in an active state, create objects
+			# Only update objects if the game is active
 			if self.stats.game_active:
 				self.dino.gravity()
-				self.dino.check_edges()
 				self.dino.update()
 				self.coins.update()
 				self.enemies.update()
 				self._update_enemies()
-
 				
 			
-			# Redraw the screen at each pass of the loop
+			# Always redraw the screen at each pass of the loop
 			self._update_screen()
 			self.clock.tick(self.settings.fps)
 			
