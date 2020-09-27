@@ -10,7 +10,7 @@ Install the `python3-pygame` and `pygame-devel` packages for your OS:
 
 Clone the respository and start the game by running `python3 dino-run.py`.  
 
-
+[Video](https://www.youtube.com/watch?v=yGWWffQ507s)
 ![](img/screenshot.png)
 
 
